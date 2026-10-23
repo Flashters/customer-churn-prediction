@@ -1,5 +1,7 @@
 # Customer Churn Prediction Pipeline
 
+![CI Status](https://github.com/Flashters/customer-churn-prediction/actions/workflows/ci.yml/badge.svg)
+
 ## 📌 Project Overview
 An end-to-end machine learning classification project designed to predict telecom customer churn. By identifying at-risk accounts early, business teams can optimize proactive retention campaigns.
 
@@ -31,3 +33,24 @@ This codebase incorporates structured workflow checkpoints (drills) to ensure mo
 - **Data Leakage:** An error where information from outside the training dataset contaminates model training. Prevented here by encapsulating all transformations within `scikit-learn` Pipelines.
 - **Stratified K-Fold:** A cross-validation technique guaranteeing that each fold preserves the exact percentage of samples for each target class.
 - **ROC-AUC:** Measures a model's capacity to discriminate between churn and non-churn classes across varying decision thresholds.
+
+---
+
+## 🏗️ End-to-End Pipeline Architecture
+```text
+[Raw Telecom CSV Data]
+         │
+         ▼
+[EDA & Data Validation Checkpoint] (`train.py`)
+         │
+         ▼
+[Preprocessing & Feature Engineering] (`ColumnTransformer`: Imputation + StandardScaler + OneHotEncoder)
+         │
+         ▼
+[Model Benchmarking] (Logistic Regression vs. Random Forest across Stratified Folds)
+         │
+         ▼
+[Model Serialization] (`models/churn_pipeline.pkl`)
+         │
+         ▼
+[Inference Execution] (`inference.py`) ──> [Predicted Churn Outcomes]
